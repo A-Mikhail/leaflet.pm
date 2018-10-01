@@ -3,9 +3,9 @@
 */
 import PMButton from './L.Controls';
 
-L.Control.PMButton = PMButton;
+DG.Control.PMButton = PMButton;
 
-const Toolbar = L.Class.extend({
+const Toolbar = DG.Class.extend({
     options: {
         drawMarker: true,
         drawPolygon: true,
@@ -23,7 +23,7 @@ const Toolbar = L.Class.extend({
 
         this.buttons = {};
         this.isVisible = false;
-        this.container = L.DomUtil.create('div', 'leaflet-pm-toolbar leaflet-bar leaflet-control');
+        this.container = DG.DomUtil.create('div', 'leaflet-pm-toolbar leaflet-bar leaflet-control');
         this._defineButtons();
     },
     getButtons() {
@@ -42,7 +42,7 @@ const Toolbar = L.Class.extend({
         }
 
         // first set the options
-        L.Util.setOptions(this, options);
+        DG.Util.setOptions(this, options);
 
         // now show the specified buttons
         this._showHideButtons();
@@ -218,15 +218,15 @@ const Toolbar = L.Class.extend({
             position: this.options.position,
         };
 
-        this._addButton('drawMarker', new L.Control.PMButton(drawMarkerButton));
-        this._addButton('drawPolyline', new L.Control.PMButton(drawLineButton));
-        this._addButton('drawRectangle', new L.Control.PMButton(drawRectangleButton));
-        this._addButton('drawPolygon', new L.Control.PMButton(drawPolyButton));
-        this._addButton('drawCircle', new L.Control.PMButton(drawCircleButton));
-        this._addButton('cutPolygon', new L.Control.PMButton(cutButton));
-        this._addButton('editMode', new L.Control.PMButton(editButton));
-        this._addButton('dragPolygon', new L.Control.PMButton(dragButton));
-        this._addButton('removalMode', new L.Control.PMButton(deleteButton));
+        this._addButton('drawMarker', new DG.Control.PMButton(drawMarkerButton));
+        this._addButton('drawPolyline', new DG.Control.PMButton(drawLineButton));
+        this._addButton('drawRectangle', new DG.Control.PMButton(drawRectangleButton));
+        this._addButton('drawPolygon', new DG.Control.PMButton(drawPolyButton));
+        this._addButton('drawCircle', new DG.Control.PMButton(drawCircleButton));
+        this._addButton('cutPolygon', new DG.Control.PMButton(cutButton));
+        this._addButton('editMode', new DG.Control.PMButton(editButton));
+        this._addButton('dragPolygon', new DG.Control.PMButton(dragButton));
+        this._addButton('removalMode', new DG.Control.PMButton(deleteButton));
     },
 
     _showHideButtons() {

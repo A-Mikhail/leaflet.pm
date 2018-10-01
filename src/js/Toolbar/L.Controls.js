@@ -1,10 +1,10 @@
-const PMButton = L.Control.extend({
+const PMButton = DG.Control.extend({
     options: {
         position: 'topleft',
     },
     // TODO: clean up variable names like _button should be _options and that domNodeVariable stuff
     initialize(options) {
-        this._button = L.Util.setOptions(this, options);
+        this._button = DG.Util.setOptions(this, options);
     },
 
     onAdd(map) {
@@ -58,28 +58,28 @@ const PMButton = L.Control.extend({
         this._button.afterClick(e);
     },
     _makeButton(button) {
-        const newButton = L.DomUtil.create('a', 'leaflet-buttons-control-button', this._container);
+        const newButton = DG.DomUtil.create('a', 'leaflet-buttons-control-button', this._container);
         if(button.toggleStatus) {
-            L.DomUtil.addClass(newButton, 'active');
+            DG.DomUtil.addClass(newButton, 'active');
         }
 
-        const image = L.DomUtil.create('div', 'control-icon', newButton);
+        const image = DG.DomUtil.create('div', 'control-icon', newButton);
         if (button.iconUrl) {
             image.setAttribute('src', button.iconUrl);
         }
         if (button.className) {
-            L.DomUtil.addClass(image, button.className);
+            DG.DomUtil.addClass(image, button.className);
         }
         // before the actual click, trigger a click on currently toggled buttons to
         // untoggle them and their functionality
-        L.DomEvent.addListener(newButton, 'click', () => {
+        DG.DomEvent.addListener(newButton, 'click', () => {
             if(this._button.disableOtherButtons) {
                 this._map.pm.Toolbar.triggerClickOnToggledButtons(this);
             }
         });
-        L.DomEvent.addListener(newButton, 'click', this._triggerClick, this);
+        DG.DomEvent.addListener(newButton, 'click', this._triggerClick, this);
 
-        L.DomEvent.disableClickPropagation(newButton);
+        DG.DomEvent.disableClickPropagation(newButton);
         return newButton;
     },
 
@@ -89,9 +89,9 @@ const PMButton = L.Control.extend({
         }
 
         if(!this._button.toggleStatus) {
-            L.DomUtil.removeClass(this.buttonsDomNode, 'active');
+            DG.DomUtil.removeClass(this.buttonsDomNode, 'active');
         } else {
-            L.DomUtil.addClass(this.buttonsDomNode, 'active');
+            DG.DomUtil.addClass(this.buttonsDomNode, 'active');
         }
     },
 

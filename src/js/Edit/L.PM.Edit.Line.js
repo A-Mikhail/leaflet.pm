@@ -26,7 +26,7 @@ Edit.Line = Edit.extend({
     },
 
     enable(options) {
-        L.Util.setOptions(this, options);
+        DG.Util.setOptions(this, options);
 
         this._map = this._layer._map;
 
@@ -97,11 +97,11 @@ Edit.Line = Edit.extend({
 
         // remove draggable class
         const el = poly._path ? poly._path : this._layer._renderer._container;
-        L.DomUtil.removeClass(el, 'leaflet-pm-draggable');
+        DG.DomUtil.removeClass(el, 'leaflet-pm-draggable');
 
         // remove invalid class if layer has self intersection
         if (this.hasSelfIntersection()) {
-            L.DomUtil.removeClass(el, 'leaflet-pm-invalid');
+            DG.DomUtil.removeClass(el, 'leaflet-pm-invalid');
         }
 
         if (this._layerEdited) {
@@ -136,18 +136,18 @@ Edit.Line = Edit.extend({
         const el = this._layer._path ? this._layer._path : this._layer._renderer._container;
 
         if (this.hasSelfIntersection()) {
-            if (L.DomUtil.hasClass(el, 'leaflet-pm-invalid')) {
+            if (DG.DomUtil.hasClass(el, 'leaflet-pm-invalid')) {
                 return;
             }
 
             // if it does self-intersect, mark or flash it red
             if (flash) {
-                L.DomUtil.addClass(el, 'leaflet-pm-invalid');
+                DG.DomUtil.addClass(el, 'leaflet-pm-invalid');
                 window.setTimeout(() => {
-                    L.DomUtil.removeClass(el, 'leaflet-pm-invalid');
+                    DG.DomUtil.removeClass(el, 'leaflet-pm-invalid');
                 }, 200);
             } else {
-                L.DomUtil.addClass(el, 'leaflet-pm-invalid');
+                DG.DomUtil.addClass(el, 'leaflet-pm-invalid');
             }
 
             // fire intersect event
@@ -156,7 +156,7 @@ Edit.Line = Edit.extend({
             });
         } else {
             // if not, reset the style to the default color
-            L.DomUtil.removeClass(el, 'leaflet-pm-invalid');
+            DG.DomUtil.removeClass(el, 'leaflet-pm-invalid');
         }
     },
 
@@ -170,7 +170,7 @@ Edit.Line = Edit.extend({
         }
 
         // add markerGroup to map, markerGroup includes regular and middle markers
-        this._markerGroup = new L.LayerGroup();
+        this._markerGroup = new DG.LayerGroup();
         this._markerGroup._pmTempLayer = true;
         map.addLayer(this._markerGroup);
 
@@ -205,9 +205,9 @@ Edit.Line = Edit.extend({
 
     // creates initial markers for coordinates
     _createMarker(latlng) {
-        const marker = new L.Marker(latlng, {
+        const marker = new DG.Marker(latlng, {
             draggable: !this.options.preventVertexEdit,
-            icon: L.divIcon({ className: 'marker-icon' }),
+            icon: DG.divIcon({ className: 'marker-icon' }),
         });
 
         marker._pmTempLayer = true;
@@ -235,7 +235,7 @@ Edit.Line = Edit.extend({
         const latlng = Utils.calcMiddleLatLng(this._map, leftM.getLatLng(), rightM.getLatLng());
 
         const middleMarker = this._createMarker(latlng);
-        const middleIcon = L.divIcon({ className: 'marker-icon marker-icon-middle' });
+        const middleIcon = DG.divIcon({ className: 'marker-icon marker-icon-middle' });
         middleMarker.setIcon(middleIcon);
 
         // save reference to this middle markers on the neighboor regular markers
@@ -246,7 +246,7 @@ Edit.Line = Edit.extend({
             // TODO: move the next two lines inside _addMarker() as soon as
             // https://github.com/Leaflet/Leaflet/issues/4484
             // is fixed
-            const icon = L.divIcon({ className: 'marker-icon' });
+            const icon = DG.divIcon({ className: 'marker-icon' });
             middleMarker.setIcon(icon);
 
             this._addMarker(middleMarker, leftM, rightM);
@@ -256,7 +256,7 @@ Edit.Line = Edit.extend({
             // callback as soon as this is fixed:
             // https://github.com/Leaflet/Leaflet/issues/4484
             middleMarker.on('moveend', () => {
-                const icon = L.divIcon({ className: 'marker-icon' });
+                const icon = DG.divIcon({ className: 'marker-icon' });
                 middleMarker.setIcon(icon);
 
                 middleMarker.off('moveend');

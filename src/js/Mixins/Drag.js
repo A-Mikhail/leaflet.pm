@@ -6,7 +6,7 @@ const DragMixin = {
         // add CSS class
         const el = this._layer._path ? this._layer._path : this._layer._renderer._container;
 
-        L.DomUtil.addClass(el, 'leaflet-pm-draggable');
+        DG.DomUtil.addClass(el, 'leaflet-pm-draggable');
 
         this._originalMapDragState = this._layer._map.dragging._enabled;
 
@@ -46,7 +46,7 @@ const DragMixin = {
         window.setTimeout(() => {
             // set state
             this._dragging = false;
-            L.DomUtil.removeClass(el, 'leaflet-pm-dragging');
+            DG.DomUtil.removeClass(el, 'leaflet-pm-dragging');
 
             // fire pm:dragend event
             this._layer.fire('pm:dragend');
@@ -63,7 +63,7 @@ const DragMixin = {
         if (!this._dragging) {
             // set state
             this._dragging = true;
-            L.DomUtil.addClass(el, 'leaflet-pm-dragging');
+            DG.DomUtil.addClass(el, 'leaflet-pm-dragging');
 
             // bring it to front to prevent drag interception
             this._layer.bringToFront();

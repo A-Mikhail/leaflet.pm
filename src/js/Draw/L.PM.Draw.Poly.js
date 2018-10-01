@@ -18,7 +18,7 @@ Draw.Poly = Draw.Line.extend({
             // Leaflet creates an extra node with double click
             coords.splice(coords.length - 1, 1);
         }
-        const polygonLayer = L.polygon(coords, this.options.pathOptions).addTo(this._map);
+        const polygonLayer = DG.polygon(coords, this.options.pathOptions).addTo(this._map);
 
         // disable drawing
         this.disable();
@@ -38,9 +38,9 @@ Draw.Poly = Draw.Line.extend({
     },
     _createMarker(latlng, first) {
         // create the new marker
-        const marker = new L.Marker(latlng, {
+        const marker = new DG.Marker(latlng, {
             draggable: false,
-            icon: L.divIcon({ className: 'marker-icon' }),
+            icon: DG.divIcon({ className: 'marker-icon' }),
         });
 
         // mark this marker as temporary

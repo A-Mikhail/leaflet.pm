@@ -1,6 +1,6 @@
 import SnapMixin from '../Mixins/Snapping';
 
-const Draw = L.Class.extend({
+const Draw = DG.Class.extend({
     includes: [SnapMixin],
     options: {
         snappable: true,

@@ -16,7 +16,7 @@ Edit.Circle = Edit.extend({
         return this._enabled;
     },
     enable(options) {
-        L.Util.setOptions(this, options);
+        DG.Util.setOptions(this, options);
 
         this._map = this._layer._map;
 
@@ -56,7 +56,7 @@ Edit.Circle = Edit.extend({
 
         // remove draggable class
         const el = layer._path ? layer._path : this._layer._renderer._container;
-        L.DomUtil.removeClass(el, 'leaflet-pm-draggable');
+        DG.DomUtil.removeClass(el, 'leaflet-pm-draggable');
 
         if (this._layerEdited) {
             this._layer.fire('pm:update', {});
@@ -74,7 +74,7 @@ Edit.Circle = Edit.extend({
         }
 
         // add markerGroup to map, markerGroup includes regular and middle markers
-        this._layerGroup = new L.LayerGroup();
+        this._layerGroup = new DG.LayerGroup();
         map.addLayer(this._layerGroup);
 
         // create marker for each coordinate
@@ -94,7 +94,7 @@ Edit.Circle = Edit.extend({
     },
     _getLatLngOnCircle(center, radius) {
         const pointA = this._map.project(center);
-        const pointB = L.point(pointA.x + radius, pointA.y);
+        const pointB = DG.point(pointA.x + radius, pointA.y);
 
         return this._map.unproject(pointB);
     },
@@ -149,7 +149,7 @@ Edit.Circle = Edit.extend({
     _createHintLine(markerA, markerB) {
         const A = markerA.getLatLng();
         const B = markerB.getLatLng();
-        this._hintline = L.polyline([A, B], this.options.hintlineStyle);
+        this._hintline = DG.polyline([A, B], this.options.hintlineStyle);
         this._hintline._pmTempLayer = true;
         this._layerGroup.addLayer(this._hintline);
     },
@@ -172,9 +172,9 @@ Edit.Circle = Edit.extend({
         return marker;
     },
     _createMarker(latlng) {
-        const marker = new L.Marker(latlng, {
+        const marker = new DG.Marker(latlng, {
             draggable: true,
-            icon: L.divIcon({ className: 'marker-icon' }),
+            icon: DG.divIcon({ className: 'marker-icon' }),
         });
 
         marker._origLatLng = latlng;

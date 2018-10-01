@@ -27,7 +27,7 @@ var OverlapMixin = {
         this._poly.setStyle({ opacity: 0, fillOpacity: 0 });
 
         // draw a temporary polygon (happens during drag & intersection)
-        this._tempPolygon = L.geoJson(geoJson).addTo(this._poly._map).bringToBack();
+        this._tempPolygon = DG.geoJson(geoJson).addTo(this._poly._map).bringToBack();
     },
 
     _handleOverlap() {

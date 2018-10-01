@@ -1,4 +1,4 @@
-const Map = L.Class.extend({
+const Map = DG.Class.extend({
     initialize(map) {
         this.map = map;
         this.Draw = new L.PM.Draw(map);
@@ -68,7 +68,7 @@ const Map = L.Class.extend({
         // find all layers handled by leaflet.pm
         let layers = [];
         this.map.eachLayer((layer) => {
-            if (layer instanceof L.Polyline || layer instanceof L.Marker || layer instanceof L.Circle) {
+            if (layer instanceof DG.Polyline || layer instanceof DG.Marker || layer instanceof DG.Circle) {
                 layers.push(layer);
             }
         });
@@ -95,7 +95,7 @@ const Map = L.Class.extend({
         // find all layers handles by leaflet.pm
         let layers = [];
         this.map.eachLayer((layer) => {
-            if (layer instanceof L.Polyline || layer instanceof L.Marker || layer instanceof L.Circle) {
+            if (layer instanceof DG.Polyline || layer instanceof DG.Marker || layer instanceof DG.Circle) {
                 layers.push(layer);
             }
         });

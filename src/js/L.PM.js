@@ -30,6 +30,8 @@ import './Edit/L.PM.Edit.Circle';
 import '../css/layers.css';
 import '../css/controls.css';
 
+const DG = require('2gis-maps');
+
 L.PM = L.PM || {
     Map,
     Toolbar,
@@ -46,13 +48,13 @@ L.PM = L.PM || {
             }
         }
 
-        L.Map.addInitHook(initMap);
+        DG.Map.addInitHook(initMap);
 
         function initLayerGroup() {
             this.pm = new L.PM.Edit.LayerGroup(this);
         }
 
-        L.LayerGroup.addInitHook(initLayerGroup);
+        DG.LayerGroup.addInitHook(initLayerGroup);
 
         function initMarker() {
             if (!this.options.pmIgnore) {
@@ -60,7 +62,7 @@ L.PM = L.PM || {
             }
         }
 
-        L.Marker.addInitHook(initMarker);
+        DG.Marker.addInitHook(initMarker);
 
         function initPolyline() {
             if (!this.options.pmIgnore) {
@@ -68,7 +70,7 @@ L.PM = L.PM || {
             }
         }
 
-        L.Polyline.addInitHook(initPolyline);
+        DG.Polyline.addInitHook(initPolyline);
 
         function initPolygon() {
             if (!this.options.pmIgnore) {
@@ -76,7 +78,7 @@ L.PM = L.PM || {
             }
         }
 
-        L.Polygon.addInitHook(initPolygon);
+        DG.Polygon.addInitHook(initPolygon);
 
         function initRectangle() {
             if (!this.options.pmIgnore) {
@@ -84,7 +86,7 @@ L.PM = L.PM || {
             }
         }
 
-        L.Rectangle.addInitHook(initRectangle);
+        DG.Rectangle.addInitHook(initRectangle);
 
         function initCircle() {
             if (!this.options.pmIgnore) {
@@ -92,7 +94,7 @@ L.PM = L.PM || {
             }
         }
 
-        L.Circle.addInitHook(initCircle);
+        DG.Circle.addInitHook(initCircle);
     },
 };
 

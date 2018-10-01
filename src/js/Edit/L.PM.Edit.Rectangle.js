@@ -15,7 +15,7 @@ Edit.Rectangle = Edit.Poly.extend({
         }
 
         // add markerGroup to map, markerGroup includes regular and middle markers
-        this._markerGroup = new L.LayerGroup();
+        this._markerGroup = new DG.LayerGroup();
         this._markerGroup._pmTempLayer = true;
         map.addLayer(this._markerGroup);
 
@@ -33,9 +33,9 @@ Edit.Rectangle = Edit.Poly.extend({
 
     // creates initial markers for coordinates
     _createMarker(latlng, index) {
-        const marker = new L.Marker(latlng, {
+        const marker = new DG.Marker(latlng, {
             draggable: !this.options.preventVertexEdit,
-            icon: L.divIcon({ className: 'marker-icon' }),
+            icon: DG.divIcon({ className: 'marker-icon' }),
         });
 
         marker._origLatLng = latlng;
@@ -122,11 +122,11 @@ Edit.Rectangle = Edit.Poly.extend({
     // params: movedMarker -- the Marker object
     _adjustRectangleForMarkerMove(movedMarker) {
         // update moved marker coordinates
-        L.extend(movedMarker._origLatLng, movedMarker._latlng);
+        DG.extend(movedMarker._origLatLng, movedMarker._latlng);
 
         // update rectangle boundaries, based on moved marker's new LatLng and cached opposite corner's LatLng
         const movedLatLng = movedMarker.getLatLng();
-        this._layer.setBounds(L.latLngBounds(movedLatLng, movedMarker._oppositeCornerLatLng));
+        this._layer.setBounds(DG.latLngBounds(movedLatLng, movedMarker._oppositeCornerLatLng));
 
         // Reposition the markers at each corner
         this._adjustAdjacentMarkers(movedMarker);

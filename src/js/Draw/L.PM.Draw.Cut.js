@@ -18,7 +18,7 @@ Draw.Cut = Draw.Poly.extend({
             // only layers handled by leaflet.pm
             .filter(l => l.pm)
             // only polygons
-            .filter(l => l instanceof L.Polygon)
+            .filter(l => l instanceof DG.Polygon)
             // exclude the drawn one
             .filter(l => l !== layer)
             // only layers with intersections
@@ -37,7 +37,7 @@ Draw.Cut = Draw.Poly.extend({
             const diff = difference(l.toGeoJSON(15), layer.toGeoJSON(15));
 
             // the resulting layer after the cut
-            const resultingLayer = L.geoJSON(diff, l.options).addTo(this._map);
+            const resultingLayer = DG.geoJSON(diff, l.options).addTo(this._map);
             resultingLayer.addTo(this._map);
 
             // give the new layer the original options
@@ -69,7 +69,7 @@ Draw.Cut = Draw.Poly.extend({
     },
     _finishShape() {
         const coords = this._layer.getLatLngs();
-        const polygonLayer = L.polygon(coords, this.options.pathOptions);
+        const polygonLayer = DG.polygon(coords, this.options.pathOptions);
         this._cut(polygonLayer);
 
         // disable drawing

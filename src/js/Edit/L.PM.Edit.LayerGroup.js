@@ -3,7 +3,7 @@ import Edit from './L.PM.Edit';
 // LayerGroup doesn't inherit from L.PM.Edit because it's just calling L.PM.Edit.Poly
 // (which inherits from L.PM.Edit) for each layer,
 // so it's not really a parent class
-Edit.LayerGroup = L.Class.extend({
+Edit.LayerGroup = DG.Class.extend({
     initialize(layerGroup) {
         this._layerGroup = layerGroup;
         this._layers = this.findLayers();
@@ -36,7 +36,7 @@ Edit.LayerGroup = L.Class.extend({
         let layers = this._layerGroup.getLayers();
 
         // filter out layers that don't have leaflet.pm
-        layers = layers.filter(layer => !(layer instanceof L.LayerGroup));
+        layers = layers.filter(layer => !(layer instanceof DG.LayerGroup));
 
         // filter out layers that don't have leaflet.pm
         layers = layers.filter(layer => !!layer.pm);

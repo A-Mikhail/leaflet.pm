@@ -9,7 +9,7 @@ Draw.Line = Draw.extend({
         this._doesSelfIntersect = false;
     },
     enable(options) {
-        L.Util.setOptions(this, options);
+        DG.Util.setOptions(this, options);
 
         // fallback option for finishOnDoubleClick
         // TODO: remove in a later release
@@ -21,30 +21,30 @@ Draw.Line = Draw.extend({
         this._enabled = true;
 
         // create a new layergroup
-        this._layerGroup = new L.LayerGroup();
+        this._layerGroup = new DG.LayerGroup();
         this._layerGroup._pmTempLayer = true;
         this._layerGroup.addTo(this._map);
 
         // this is the polyLine that'll make up the polygon
-        this._layer = L.polyline([], this.options.templineStyle);
+        this._layer = DG.polyline([], this.options.templineStyle);
         this._layer._pmTempLayer = true;
         this._layerGroup.addLayer(this._layer);
 
         // this is the hintline from the mouse cursor to the last marker
-        this._hintline = L.polyline([], this.options.hintlineStyle);
+        this._hintline = DG.polyline([], this.options.hintlineStyle);
         this._hintline._pmTempLayer = true;
         this._layerGroup.addLayer(this._hintline);
 
         // this is the hintmarker on the mouse cursor
-        this._hintMarker = L.marker(this._map.getCenter(), {
-            icon: L.divIcon({ className: 'marker-icon cursor-marker' }),
+        this._hintMarker = DG.marker(this._map.getCenter(), {
+            icon: DG.divIcon({ className: 'marker-icon cursor-marker' }),
         });
         this._hintMarker._pmTempLayer = true;
         this._layerGroup.addLayer(this._hintMarker);
 
         // show the hintmarker if the option is set
         if (this.options.cursorMarker) {
-            L.DomUtil.addClass(this._hintMarker._icon, 'visible');
+            DG.DomUtil.addClass(this._hintMarker._icon, 'visible');
         }
 
         // change map cursor
@@ -171,7 +171,7 @@ Draw.Line = Draw.extend({
         // intersection on the clone. Phew... - let's do it 💪
 
         // clone layer (polyline is enough, even when it's a polygon)
-        const clone = L.polyline(this._layer.getLatLngs());
+        const clone = DG.polyline(this._layer.getLatLngs());
 
         // add the vertex
         clone.addLatLng(this._hintMarker.getLatLng());
@@ -237,7 +237,7 @@ Draw.Line = Draw.extend({
 
         // get coordinates, create the leaflet shape and add it to the map
         const coords = this._layer.getLatLngs();
-        const polylineLayer = L.polyline(coords, this.options.pathOptions).addTo(this._map);
+        const polylineLayer = DG.polyline(coords, this.options.pathOptions).addTo(this._map);
 
         // disable drawing
         this.disable();
@@ -254,9 +254,9 @@ Draw.Line = Draw.extend({
     },
     _createMarker(latlng) {
         // create the new marker
-        const marker = new L.Marker(latlng, {
+        const marker = new DG.Marker(latlng, {
             draggable: false,
-            icon: L.divIcon({ className: 'marker-icon' }),
+            icon: DG.divIcon({ className: 'marker-icon' }),
         });
         marker._pmTempLayer = true;
 

@@ -9,24 +9,24 @@ Draw.Rectangle = Draw.extend({
     enable(options) {
         // TODO: Think about if these options could be passed globally for all
         // instances of L.PM.Draw. So a dev could set drawing style one time as some kind of config
-        L.Util.setOptions(this, options);
+        DG.Util.setOptions(this, options);
 
         // enable draw mode
         this._enabled = true;
 
         // create a new layergroup
-        this._layerGroup = new L.LayerGroup();
+        this._layerGroup = new DG.LayerGroup();
         this._layerGroup._pmTempLayer = true;
         this._layerGroup.addTo(this._map);
 
         // the rectangle we want to draw
-        this._layer = L.rectangle([[0, 0], [0, 0]], this.options.pathOptions);
+        this._layer = DG.rectangle([[0, 0], [0, 0]], this.options.pathOptions);
         this._layer._pmTempLayer = true;
 
         // this is the marker at the origin of the rectangle
         // this needs to be present, for tracking purposes, but we'll make it invisible if a user doesn't want to see it!
-        this._startMarker = L.marker([0, 0], {
-            icon: L.divIcon({ className: 'marker-icon rect-start-marker' }),
+        this._startMarker = DG.marker([0, 0], {
+            icon: DG.divIcon({ className: 'marker-icon rect-start-marker' }),
             draggable: true,
             zIndexOffset: 100,
             opacity: this.options.cursorMarker ? 1 : 0,
@@ -35,21 +35,21 @@ Draw.Rectangle = Draw.extend({
         this._layerGroup.addLayer(this._startMarker);
 
         // this is the hintmarker on the mouse cursor
-        this._hintMarker = L.marker([0, 0], {
-            icon: L.divIcon({ className: 'marker-icon cursor-marker' }),
+        this._hintMarker = DG.marker([0, 0], {
+            icon: DG.divIcon({ className: 'marker-icon cursor-marker' }),
         });
         this._hintMarker._pmTempLayer = true;
         this._layerGroup.addLayer(this._hintMarker);
 
         // show the hintmarker if the option is set
         if (this.options.cursorMarker) {
-            L.DomUtil.addClass(this._hintMarker._icon, 'visible');
+            DG.DomUtil.addClass(this._hintMarker._icon, 'visible');
 
             // Add two more matching style markers, if cursor marker is rendered
             this._styleMarkers = [];
             for (let i = 0; i < 2; i += 1) {
-                const styleMarker = L.marker([0, 0], {
-                    icon: L.divIcon({ className: 'marker-icon rect-style-marker' }),
+                const styleMarker = DG.marker([0, 0], {
+                    icon: DG.divIcon({ className: 'marker-icon rect-style-marker' }),
                     draggable: true,
                     zIndexOffset: 100,
                 });
@@ -132,13 +132,13 @@ Draw.Rectangle = Draw.extend({
         const latlng = this._hintMarker.getLatLng();
 
         // show and place start marker
-        L.DomUtil.addClass(this._startMarker._icon, 'visible');
+        DG.DomUtil.addClass(this._startMarker._icon, 'visible');
         this._startMarker.setLatLng(latlng);
 
         // if we have the other two visibilty markers, show and place them now
         if (this.options.cursorMarker && this._styleMarkers) {
             this._styleMarkers.forEach((styleMarker) => {
-                L.DomUtil.addClass(styleMarker._icon, 'visible');
+                DG.DomUtil.addClass(styleMarker._icon, 'visible');
                 styleMarker.setLatLng(latlng);
             });
         }
@@ -200,7 +200,7 @@ Draw.Rectangle = Draw.extend({
         // create the final rectangle layer, based on opposite corners A & B
         const A = this._startMarker.getLatLng();
         const B = e.latlng;
-        const rectangleLayer = L.rectangle([A, B], this.options.pathOptions).addTo(this._map);
+        const rectangleLayer = DG.rectangle([A, B], this.options.pathOptions).addTo(this._map);
 
         // disable drawing
         this.disable();

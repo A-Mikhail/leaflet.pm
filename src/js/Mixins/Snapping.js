@@ -74,7 +74,7 @@ const SnapMixin = {
         // get the closest layer, it's closest latlng, segment and the distance
         const closestLayer = this._calcClosestLayer(marker.getLatLng(), this._snapList);
 
-        const isMarker = closestLayer.layer instanceof L.Marker || closestLayer.layer instanceof L.CircleMarker;
+        const isMarker = closestLayer.layer instanceof DG.Marker || closestLayer.layer instanceof DG.CircleMarker;
 
         // find the final latlng that we want to snap to
         let snapLatLng;
@@ -197,11 +197,11 @@ const SnapMixin = {
         // find all layers that are or inherit from Polylines... and markers that are not
         // temporary markers of polygon-edits
         map.eachLayer((layer) => {
-            if (layer instanceof L.Polyline || layer instanceof L.Marker || layer instanceof L.CircleMarker) {
+            if (layer instanceof DG.Polyline || layer instanceof DG.Marker || layer instanceof DG.CircleMarker) {
                 layers.push(layer);
 
                 // this is for debugging
-                const debugLine = L.polyline([], { color: 'red', pmIgnore: true });
+                const debugLine = DG.polyline([], { color: 'red', pmIgnore: true });
                 debugIndicatorLines.push(debugLine);
 
                 // uncomment 👇 this line to show helper lines for debugging
@@ -255,10 +255,10 @@ const SnapMixin = {
         const map = this._map;
 
         // is this a marker?
-        const isMarker = layer instanceof L.Marker || layer instanceof L.CircleMarker;
+        const isMarker = layer instanceof DG.Marker || layer instanceof DG.CircleMarker;
 
         // is it a polygon?
-        const isPolygon = layer instanceof L.Polygon;
+        const isPolygon = layer instanceof DG.Polygon;
 
         // the point P which we want to snap (probpably the marker that is dragged)
         const P = latlng;
@@ -335,14 +335,14 @@ const SnapMixin = {
         const P = map.project(latlng, maxzoom);
         const A = map.project(latlngA, maxzoom);
         const B = map.project(latlngB, maxzoom);
-        const closest = L.LineUtil.closestPointOnSegment(P, A, B);
+        const closest = DG.LineUtil.closestPointOnSegment(P, A, B);
         return map.unproject(closest, maxzoom);
     },
     _getDistanceToSegment(map, latlng, latlngA, latlngB) {
         const P = map.latLngToLayerPoint(latlng);
         const A = map.latLngToLayerPoint(latlngA);
         const B = map.latLngToLayerPoint(latlngB);
-        return L.LineUtil.pointToSegmentDistance(P, A, B);
+        return DG.LineUtil.pointToSegmentDistance(P, A, B);
     },
     _getDistance(map, latlngA, latlngB) {
         return map.latLngToLayerPoint(latlngA).distanceTo(map.latLngToLayerPoint(latlngB));

@@ -9,7 +9,7 @@ Draw.Marker = Draw.extend({
     enable(options) {
         // TODO: Think about if these options could be passed globally for all
         // instances of L.PM.Draw. So a dev could set drawing style one time as some kind of config
-        L.Util.setOptions(this, options);
+        DG.Util.setOptions(this, options);
 
         // change enabled state
         this._enabled = true;
@@ -21,7 +21,7 @@ Draw.Marker = Draw.extend({
         this._map.pm.Toolbar.toggleButton(this.toolbarButtonName, true);
 
         // this is the hintmarker on the mouse cursor
-        this._hintMarker = L.marker([0, 0], this.options.markerStyle);
+        this._hintMarker = DG.marker([0, 0], this.options.markerStyle);
         this._hintMarker._pmTempLayer = true;
         this._hintMarker.addTo(this._map);
 
@@ -36,7 +36,7 @@ Draw.Marker = Draw.extend({
 
         // enable edit mode for existing markers
         this._map.eachLayer((layer) => {
-            if(layer instanceof L.Marker && layer.pm) {
+            if(layer instanceof DG.Marker && layer.pm) {
                 layer.pm.enable();
             }
         });
@@ -58,7 +58,7 @@ Draw.Marker = Draw.extend({
 
         // disable dragging and removing for all markers
         this._map.eachLayer((layer) => {
-            if(layer instanceof L.Marker && layer.pm && !layer._pmTempLayer) {
+            if(layer instanceof DG.Marker && layer.pm && !layer._pmTempLayer) {
                 layer.pm.disable();
             }
         });
@@ -97,7 +97,7 @@ Draw.Marker = Draw.extend({
         const latlng = this._hintMarker.getLatLng();
 
         // create marker
-        const marker = new L.Marker(latlng, this.options.markerStyle);
+        const marker = new DG.Marker(latlng, this.options.markerStyle);
 
         // add marker to the map
         marker.addTo(this._map);
@@ -110,6 +110,7 @@ Draw.Marker = Draw.extend({
             shape: this._shape,
             marker,                     // DEPRECATED
             layer: marker,
+
         });
 
         this._cleanupSnapping();
